@@ -1,0 +1,3 @@
+### Приватный доступ (требует токен)
+GET http://localhost:4000/api/protected
+Authorization: Bearer {{YOUR_TOKEN_HERE}}

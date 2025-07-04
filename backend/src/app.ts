@@ -2,6 +2,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { register, login } from './controllers/auth.controller';
+import { authMiddleware } from './middleware/auth.middleware';
 
 dotenv.config();
 
@@ -12,6 +14,13 @@ app.use(express.json());
 app.get('/api/health', (_req, res) => {
     res.json({ status: 'OK' });
 });
+app.get('/api/protected', authMiddleware, (req, res) => {
+    res.json({ message: 'You are authorized', userId: (req as any).userId });
+});
+
+// добавляем роут регистрации
+app.post('/api/register', register);
+app.post('/api/login', login);
 
 // подключаемся к MongoDB
 const mongoUrl = process.env.MONGO_URL;
