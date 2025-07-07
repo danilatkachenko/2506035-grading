@@ -1,0 +1,36 @@
+### Создать гитару
+POST http://localhost:4000/api/products
+Authorization: Bearer {{jwt}}
+Content-Type: application/json
+
+{
+  "name": "Yamaha FG800",
+  "description": "Надёжная классическая акустика для начинающих",
+  "imageUrl": "https://example.com/fg800.jpg",
+  "type": "acoustic",
+  "sku": "FG800-2025",
+  "stringsCount": 6,
+  "price": 25000
+}
+
+### Получить список товаров (1-я страница)
+GET http://localhost:4000/api/products?page=1&limit=7&type=acoustic&sortBy=price&sortOrder=desc
+Authorization: Bearer {{jwt}}
+
+### Получить гитару по ID
+GET http://localhost:4000/api/products/68681cf26f79322a9f79045c
+Authorization: Bearer {{jwt}}
+
+### Обновить гитару
+PUT http://localhost:4000/api/products/68681cf26f79322a9f79045c
+Authorization: Bearer {{jwt}}
+Content-Type: application/json
+
+{
+  "price": 26000,
+  "description": "Обновлённое описание"
+}
+
+### Удалить гитару
+DELETE http://localhost:4000/api/products/68681cf26f79322a9f79045c
+Authorization: Bearer {{jwt}}
