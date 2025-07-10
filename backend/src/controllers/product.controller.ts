@@ -16,7 +16,7 @@ export const createProduct = async (req: AuthRequest, res: Response) => {
 
 // Список товаров с пагинацией, фильтрами и сортировкой
 export async function getProducts(req: Request, res: Response) {
-    const { type, stringsCount, q, sort, page = '1', limit = '7' } = req.query;
+    const { type, stringsCount, q, sort, order, page = '1', limit = '7' } = req.query;
 
     const filter: any = {};
 
@@ -26,9 +26,10 @@ export async function getProducts(req: Request, res: Response) {
         filter.name = { $regex: q.toString(), $options: 'i' };
     }
 
-    let sortOption = {};
-    if (sort === 'asc') sortOption = { price: 1 };
-    if (sort === 'desc') sortOption = { price: -1 };
+    let sortOption: any = {};
+    if (sort === 'price' || sort === 'createdAt') {
+        sortOption = { [sort]: order === 'asc' ? 1 : -1 };
+    }
 
     const pageNum = Number(page);
     const limitNum = Number(limit);
@@ -47,6 +48,7 @@ export async function getProducts(req: Request, res: Response) {
         pages: Math.ceil(total / limitNum),
     });
 }
+
 
 
 // Детальная инфа по одной гитаре

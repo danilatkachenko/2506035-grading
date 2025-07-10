@@ -11,12 +11,16 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { register, login } from './controllers/auth.controller';
 import { authMiddleware, AuthRequest } from './middleware/auth.middleware';
-// import { setupSwagger } from './swagger';
+import { upload } from './upload';
+import path from 'path';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 // setupSwagger(app);
 
 // тестовый роут
@@ -32,6 +36,13 @@ app.post('/api/register', register);
 app.post('/api/login', login);
 // CRUD Product (все приватные)
 app.post('/api/products', authMiddleware, createProduct);
+app.post('/api/upload', upload.single('image'), (req, res) => {
+    const file = req.file;
+    if (!file) {
+        return res.status(400).json({ error: 'Нет файла' });
+    }
+    res.json({ url: `/uploads/${file.filename}` });
+});
 app.get('/api/products', authMiddleware, getProducts);
 app.get('/api/products/:id', authMiddleware, getProductById);
 app.put('/api/products/:id', authMiddleware, updateProduct);

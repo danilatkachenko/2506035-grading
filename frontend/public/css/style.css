@@ -1033,7 +1033,7 @@ button,
 
 .header__user-name,
 .header__link-text {
-  display: none;
+  display: table-column;
 }
 
 .header__link {

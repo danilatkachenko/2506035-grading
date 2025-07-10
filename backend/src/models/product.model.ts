@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IProduct extends Document {
     name: string;
     description: string;
-    dateAdded: Date;
+    // dateAdded: Date;  // Removed - replaced with Mongoose timestamps
     imageUrl: string;
     type: 'electro' | 'acoustic' | 'ukulele';
     sku: string;
@@ -23,10 +23,6 @@ const ProductSchema = new Schema<IProduct>({
         required: true,
         minlength: 20,
         maxlength: 1024,
-    },
-    dateAdded: {
-        type: Date,
-        default: () => new Date(),
     },
     imageUrl: {
         type: String,
@@ -54,6 +50,8 @@ const ProductSchema = new Schema<IProduct>({
         max: 1_000_000,
         required: true,
     },
+}, {
+    timestamps: true,
 });
 
 export const ProductModel = mongoose.model<IProduct>('Product', ProductSchema);

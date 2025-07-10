@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../public/css/style.css';
 import Footer from "../components/Footer.tsx";
+import Navbar from "../components/Navbar.tsx";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -9,7 +10,7 @@ export default function RegisterPage() {
     email: '',
     password: '',
   });
-
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -38,60 +39,72 @@ export default function RegisterPage() {
 
   return (
     <>
-    <main className="page-content">
-      <div className="container">
-        <h1 className="title title--h1">Регистрация</h1>
-
-        <form className="custom-form" onSubmit={handleSubmit}>
-          <div className="custom-form__wrapper">
-            <label className="custom-form__label">
-              <span className="custom-form__title">Имя</span>
-              <input
-                type="text"
-                name="name"
-                className="custom-form__input"
-                value={form.name}
-                onChange={handleChange}
-                required
-              />
-            </label>
-
-            <label className="custom-form__label">
-              <span className="custom-form__title">E-mail</span>
-              <input
-                type="email"
-                name="email"
-                className="custom-form__input"
-                value={form.email}
-                onChange={handleChange}
-                required
-              />
-            </label>
-
-            <label className="custom-form__label">
-              <span className="custom-form__title">Пароль</span>
-              <input
-                type="password"
-                name="password"
-                className="custom-form__input"
-                value={form.password}
-                onChange={handleChange}
-                required
-              />
-            </label>
-          </div>
-
-          {error && <p className="text-red-500 mt-2">{error}</p>}
-
-          <div className="custom-form__buttons">
-            <button type="submit" className="button button--register">
-              Зарегистрироваться
-            </button>
-          </div>
-        </form>
-      </div>
-    </main>
-      <Footer />
+      <Navbar/>
+      <main className="page-content">
+        <div className="container">
+          <section className="login">
+            <h1 className="login__title">Регистрация</h1>
+            <form onSubmit={handleSubmit}>
+              <div className="input-login">
+                <label htmlFor="name">Введите имя</label>
+                <input
+                  type="text"
+                  placeholder="Иван"
+                  id="name"
+                  name="name"
+                  autoComplete="off"
+                  required
+                  value={form.name}
+                  onChange={handleChange}
+                />
+                <p className="input-login__error">Заполните поле</p>
+              </div>
+              <div className="input-login">
+                <label htmlFor="email">Введите e-mail</label>
+                <input
+                  type="email"
+                  placeholder="example@mail.ru"
+                  id="email"
+                  name="email"
+                  autoComplete="off"
+                  required
+                  value={form.email}
+                  onChange={handleChange}
+                />
+                <p className="input-login__error">Заполните поле</p>
+              </div>
+              <div className="input-login">
+                <label htmlFor="password">Придумайте пароль</label><span>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="••••••••••••"
+                    id="password"
+                    name="password"
+                    autoComplete="off"
+                    required
+                    value={form.password}
+                    onChange={handleChange}
+                  />
+                <button
+                  type="button"
+                  className="input-login__button-eye"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+                >
+                  <svg width="14" height="8" aria-hidden="true">
+                    <use xlinkHref="#icon-eye"/>
+                  </svg>
+                </button>
+              </span>
+                <p className="input-login__error">Заполните поле</p>
+                {error && <p className="text-red-500 mt-4">{error}</p>}
+              </div>
+              <button className="button login__button button--medium" type="submit">Зарегистрироваться</button>
+            </form>
+          </section>
+        </div>
+      </main>
+      <Footer/>
     </>
   );
 }

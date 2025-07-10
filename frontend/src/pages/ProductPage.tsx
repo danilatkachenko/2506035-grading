@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../../public/css/style.css';
 import Footer from "../components/Footer.tsx";
 
 export default function ProductPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [product, setProduct] = useState<any>(null);
   const [error, setError] = useState('');
 
@@ -45,36 +44,68 @@ export default function ProductPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <main className="page-content">
         <div className="container">
-          <button onClick={() => navigate(-1)} className="button button--small button--black-border mb-6">
-            ← Назад
-          </button>
-
+          <h1 className="page-content__title title title--bigger">Товар</h1>
+          <ul className="breadcrumbs page-content__breadcrumbs">
+            <li className="breadcrumbs__item"><a className="link" href="/products">Главная</a>
+            </li>
+            <li className="breadcrumbs__item"><a className="link" href="/products">Каталог</a>
+            </li>
+            <li className="breadcrumbs__item"><a className="link">Товар</a>
+            </li>
+          </ul>
           <div className="product-container">
-            <div className="product__img">
-              <img
-                src={product.imageUrl.startsWith('/') ? product.imageUrl : '/' + product.imageUrl}
-                width="260"
-                height="300"
-                alt={product.name}
-              />
-            </div>
-
-            <div className="product__info-wrapper">
-              <h1 className="title title--h3">{product.name}</h1>
-              <div className="rate product__rate">★★★★☆</div>
-              <p className="product__sku">Артикул: <span>{product.sku}</span></p>
-              <p className="product__description">{product.description}</p>
-              <p className="product__price">
-                <span>Цена:</span> {product.price} ₽
-              </p>
+            <img
+            className="product-container__img"
+            src={product.imageUrl}
+            width="260"
+            height="300"
+            alt={product.name}
+          />
+            <div className="product-container__info-wrapper">
+              <h2 className="product-container__title title title--big title--uppercase">
+                {product.name}
+              </h2>
+              <br/>
+              <br/>
+              <div className="tabs"><a className="button button--medium tabs__button"
+                                       href={"#characteristics"}>Характеристики</a><a
+                className="button button--black-border button--medium tabs__button" href={"#description"}>Описание</a>
+                <div className="tabs__content" id="characteristics">
+                  <table className="tabs__table">
+                    <tbody>
+                    <tr className="tabs__table-row">
+                      <td className="tabs__title">Артикул:</td>
+                      <td className="tabs__value">{product.sku}</td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr className="tabs__table-row">
+                      <td className="tabs__title">Тип:</td>
+                      <td className="tabs__value">
+                        {product.type === 'acoustic' ? 'Акустическая' :
+                          product.type === 'electric' ? 'Электрогитара' :
+                            product.type === 'ukulele' ? 'Укулеле' : product.type}
+                      </td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr className="tabs__table-row">
+                      <td className="tabs__title">Количество струн:</td>
+                      <td className="tabs__value">{product.stringsCount} струнная</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <p className="tabs__product-description">{product.description}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </main>
-      <Footer />
+      <Footer/>
     </>
   );
 }

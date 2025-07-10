@@ -5,17 +5,22 @@ import Footer from "../components/Footer.tsx";
 export default function NotFoundPage() {
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <main className="page-content">
-        <div className="container text-center py-20">
-          <h1 className="title title--h1 mb-4">404</h1>
-          <p className="text-lg mb-6">Страница не найдена 😢</p>
-          <Link to="/products" className="button button--black-border">
-            ← Вернуться в каталог
-          </Link>
+        <div className="container">
+          <section className="error">
+            <h1 className="error__title">404</h1><span className="error__subtitle">Страница не найдена.</span>
+            <p className="error__text"> Возможно, страница была удалена или<br/>её вовсе не существовало.</p>
+            <Link
+              to="/products"
+              className="button button__error button--small button--black-border"
+            >
+              Продолжить покупки
+            </Link>
+          </section>
         </div>
       </main>
-      <Footer />
+      <Footer/>
     </>
   );
 }
