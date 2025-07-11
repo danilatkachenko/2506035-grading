@@ -14,12 +14,11 @@ export default function Navbar() {
     navigate('/login');
   };
 
-  // 🔄 Следим за изменениями в localStorage после логина
   useEffect(() => {
     const interval = setInterval(() => {
       setToken(localStorage.getItem('token'));
       setName(localStorage.getItem('name'));
-    }, 500); // можно заменить на context или событие позже
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);

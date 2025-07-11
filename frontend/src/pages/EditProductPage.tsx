@@ -107,7 +107,6 @@ export default function EditProductPage() {
 
             <form className="edit-item__form" onSubmit={handleSubmit}>
               <div className="edit-item__form-left">
-                {/* 🔽 Превью изображения */}
                 <div className="edit-item-image edit-item__form-image">
                   <div className="edit-item-image__image-wrap">
                     {form.imageUrl ? (
@@ -150,7 +149,6 @@ export default function EditProductPage() {
                   </div>
                 </div>
 
-                {/* 🔽 Радиокнопки типа */}
                 <div className="input-radio edit-item__form-radio">
                   <span>Тип товара</span>
                   {['acoustic', 'electric', 'ukulele'].map((type) => (
@@ -174,7 +172,6 @@ export default function EditProductPage() {
                   ))}
                 </div>
 
-                {/* 🔽 Кол-во струн */}
                 <div className="input-radio edit-item__form-radio">
                   <span>Количество струн</span>
                   {[4, 6, 7, 12].map((n) => (

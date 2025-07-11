@@ -3,7 +3,6 @@ import { ProductModel } from '../models/product.model';
 import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
 import { AuthRequest } from '../middleware/auth.middleware';
 
-// Создание новой гитары
 export const createProduct = async (req: AuthRequest, res: Response) => {
     const dto = req.body as CreateProductDto;
     try {
@@ -14,7 +13,6 @@ export const createProduct = async (req: AuthRequest, res: Response) => {
     }
 };
 
-// Список товаров с пагинацией, фильтрами и сортировкой
 export async function getProducts(req: Request, res: Response) {
     const { type, stringsCount, q, sort, order, page = '1', limit = '7' } = req.query;
 
@@ -49,9 +47,6 @@ export async function getProducts(req: Request, res: Response) {
     });
 }
 
-
-
-// Детальная инфа по одной гитаре
 export const getProductById = async (req: AuthRequest, res: Response) => {
     try {
         const prod = await ProductModel.findById(req.params.id);
@@ -62,7 +57,6 @@ export const getProductById = async (req: AuthRequest, res: Response) => {
     }
 };
 
-// Редактирование
 export const updateProduct = async (req: AuthRequest, res: Response) => {
     const dto = req.body as UpdateProductDto;
     try {
@@ -74,7 +68,6 @@ export const updateProduct = async (req: AuthRequest, res: Response) => {
     }
 };
 
-// Удаление
 export const deleteProduct = async (req: AuthRequest, res: Response) => {
     try {
         const prod = await ProductModel.findByIdAndDelete(req.params.id);

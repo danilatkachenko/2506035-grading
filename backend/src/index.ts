@@ -1,4 +1,3 @@
-// backend/src/index.ts
 import app from './app';
 import express from "express";
 

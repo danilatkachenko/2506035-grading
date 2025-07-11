@@ -1,9 +1,0 @@
-### Регистрация нового пользователя
-POST http://localhost:4000/api/register
-Content-Type: application/json
-
-{
-  "name": "Danila",
-  "email": "danila@example.com",
-  "password": "12345"
-}

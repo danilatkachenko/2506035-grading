@@ -3,7 +3,6 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IProduct extends Document {
     name: string;
     description: string;
-    // dateAdded: Date;  // Removed - replaced with Mongoose timestamps
     imageUrl: string;
     type: 'electro' | 'acoustic' | 'ukulele';
     sku: string;

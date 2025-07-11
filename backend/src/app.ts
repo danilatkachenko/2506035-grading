@@ -1,4 +1,3 @@
-// backend/src/app.ts
 import {
     createProduct,
     getProducts,
@@ -21,9 +20,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-// setupSwagger(app);
 
-// тестовый роут
 app.get('/api/health', (_req, res) => {
     res.json({ status: 'OK' });
 });
@@ -31,10 +28,8 @@ app.get('/api/protected', authMiddleware, (req: AuthRequest, res) => {
     res.json({ message: 'You are authorized', userId: req.userId });
 });
 
-// добавляем роут регистрации
 app.post('/api/register', register);
 app.post('/api/login', login);
-// CRUD Product (все приватные)
 app.post('/api/products', authMiddleware, createProduct);
 app.post('/api/upload', upload.single('image'), (req, res) => {
     const file = req.file;
@@ -49,7 +44,6 @@ app.put('/api/products/:id', authMiddleware, updateProduct);
 app.delete('/api/products/:id', authMiddleware, deleteProduct);
 
 
-// подключаемся к MongoDB
 const mongoUrl = process.env.MONGO_URL;
 if (!mongoUrl) {
     console.error('❌ MONGO_URL не задан в .env');
